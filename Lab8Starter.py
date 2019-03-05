@@ -14,7 +14,7 @@ class Animal:
         # Add your code here
         x = startx + col*self.rect.width
         y = starty + row*self.rect.width
-
+#a fun little thing
         # Then use the x,y to shift the rectangle there.
         self.rect.topleft = (x,y)
 

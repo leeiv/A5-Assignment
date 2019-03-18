@@ -1,3 +1,6 @@
+# Ivan Lee u1059105
+# Penny Kite u1215780
+
 import pygame, sys, random
 import pygame.freetype  # Import the freetype module.
 

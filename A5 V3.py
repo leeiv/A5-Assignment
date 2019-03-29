@@ -29,7 +29,7 @@ class Field:
 
 # Troop types. They differ by cost, image, health, attack, and speed.
 class Robot:
-    def __init__(self, image):
+    def __init__(self, image, position):
         self.pos = 0
         self.image = image
         self.rect = self.image.get_rect()
@@ -37,21 +37,35 @@ class Robot:
         self.attack = 0.5
         self.speed = 2
         self.in_battle = False
-        self.y_position = random.randint(1, 5) * self.rect.width
-        self.x_position = random.randint(1, 5) * self.rect.height
+        self.cost = 50
+        # self.y_position = random.randint(1, 5) * self.rect.width
+        # self.x_position = random.randint(1, 5) * self.rect.height
+
+        x_pos, y_pos = position
+
+        startY = 128
+        startX = 128
+        space_height = 64
+        space_width = 64
+
+        row = (y_pos - startY) // space_height
+        col = (x_pos - startX) // space_width
+
+        self.y_position = startY + space_height * row
+        self.x_position = startX + space_width * col
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
 
 class WeakBot(Robot):
-    def __init__(self, image):
-        super().__init__(image)
+    def __init__(self, image, position):
+        super().__init__(image, position)
         self.health = 20
         self.attack = 0.8
 
 class StrongBot(Robot):
-    def __init__(self, image):
-        super().__init__(image)
+    def __init__(self, image, position):
+        super().__init__(image, position)
         self.health = 60
         self.attack = 0.1
 
@@ -71,7 +85,7 @@ class SpeedyAlien(Alien):
         super().__init__(image)
         self.speed = 6
         self.health = 20
-        self.attack = 0.5
+        self.attack = 0.3
 
 class BigBoiAlien(Alien):
     def __init__(self, image):
@@ -103,6 +117,14 @@ class Button:
 def button_pressed():
     print("Button was pressed")
 
+class Home:
+    def __init__(self, rect, house):
+        self.rect = rect
+        self.house = house
+        self.house = pygame.draw.rect(self.rect, (200, 160, 100, 255), (0, 0, 40, 600))
+
+#use a range for the mouse clicking
+
 # Draw the little bar above showing health
 def draw_health_bar(screen, health, position_rect):
     health_bar = position_rect.copy()
@@ -124,14 +146,14 @@ def main():
 
     # Load images
     robot_image = pygame.image.load("robot.png").convert_alpha()
-    robot = Robot(robot_image)
     alien_image = pygame.image.load("alien.png").convert_alpha()
-    alien = Alien(alien_image)
 
     #Button
-    button = Button(rect=(50,50,105,25), command=button_pressed)
-    button2 = Button(rect=(200, 50, 105, 25), command=button_pressed)
+    # button = Button(rect=(50,50,105,25), command=button_pressed)
+    # button2 = Button(rect=(200, 50, 105, 25), command=button_pressed)
     # button.draw(screen)
+
+
 
     player1_gold = 50
     build_list = []
@@ -142,6 +164,11 @@ def main():
     # Use a font for text on screen
     GAME_FONT = pygame.freetype.SysFont('Consolas',18)
 
+    fast_button = pygame.draw.rect(screen, (200, 100, 0, 255), (50, 50, 105, 25))
+    slow_button = pygame.draw.rect(screen, (200, 100, 0, 255), (200, 50, 105, 25))
+
+    fast_store = False
+    slow_store = False
 
     done = False
     while not done:
@@ -149,26 +176,32 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
+            mouse_position = pygame.mouse.get_pos()
             # Process key presses as events so as to capture all key presses
             # rather than just those while looking.
 
             # Depending on the key press, add different troops to the
             # build_list
-            # if event.type == pygame.KEYDOWN:
-            #     if event.key == pygame.K_1:
-            #         if player1_gold > Peasant.cost:
-            #             player1_gold -= Peasant.cost
-            #             build_list.append(Peasant(peasant_image))
-            #     if event.key == pygame.K_2:
-            #         if player1_gold > Knight.cost:
-            #             player1_gold -= Knight.cost
-            #             build_list.append(Knight(knight_image))
-            #     if event.key == pygame.K_3:
-            #         if player1_gold > Wizard.cost:
-            #             player1_gold -= Wizard.cost
-            #             build_list.append(Wizard(wizard_image))
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if fast_button.collidepoint(mouse_position) and int(player1_gold) >= 50 and fast_store == False:
+                    player1_gold -= 50
+                    fast_store = True
+                elif fast_store == True:
+                    x_pos, y_pos = mouse_position
+                    if x_pos > 64 and y_pos > 64 and x_pos < 600 and y_pos < 600:
+                        player1_troops.append(WeakBot(robot_image, mouse_position))
+                        fast_store = False
 
-        player1_gold += 0.06
+                if slow_button.collidepoint(mouse_position) and int(player1_gold) >= 100 and slow_store == False:
+                    player1_gold -= 100
+                    slow_store = True
+                elif slow_store == True:
+                    x_pos, y_pos = mouse_position
+                    if x_pos > 64 and y_pos > 64 and x_pos < 600 and y_pos < 600:
+                        player1_troops.append(StrongBot(robot_image, mouse_position))
+                        slow_store = False
+
+        player1_gold += 1.5
 
         # Pull a ready object from the factory queue
         if frame_count%30 == 0:
@@ -176,10 +209,11 @@ def main():
             #     new_troop = build_list.pop(0)
             #     player1_troops.append(new_troop)
         # Add computer troops
-            if random.randint(1,100) > 60:
-                player1_troops.append(StrongBot(robot_image))
-            if random.randint(1,100) > 80:
-                player1_troops.append(WeakBot(robot_image))
+
+            # if random.randint(1,100) > 60:
+            #     player1_troops.append(StrongBot(robot_image))
+            # if random.randint(1,100) > 80:
+            #     player1_troops.append(WeakBot(robot_image))
             if random.randint(1,100) > 95:
                 computer_troops.append(BigBoiAlien(alien_image))
             if random.randint(1,100) > 85:
@@ -201,6 +235,9 @@ def main():
         # Erase the screen
         screen.fill((150, 200, 150))
         GAME_FONT.render_to(screen, (40, 20), "Gold: " + str(int(player1_gold)), (200, 100, 120))
+
+        fast_button = pygame.draw.rect(screen, (100, 100, 0, 255), (50, 50, 105, 25))
+        slow_button = pygame.draw.rect(screen, (100, 100, 0, 255), (200, 50, 105, 25))
 
         # Draw the troops
         for troop in player1_troops:
@@ -229,6 +266,8 @@ def main():
                     if not enemy.in_battle:
                         enemy.in_battle = troop
 
+        home = Home(screen, house='house')
+
         # Get damage
         for troop in player1_troops:
             if troop.in_battle:
@@ -238,6 +277,10 @@ def main():
             if troop.in_battle:
                 troop.health -= troop.in_battle.attack
 
+        for troop in computer_troops:
+            if troop.rect.colliderect(home.house):
+                done = True
+
         # Remove dead troops. Use a list comprehension to do this by keeping healthy troops.
         player1_troops = [troop for troop in player1_troops if troop.health > 0]
 
@@ -245,14 +288,15 @@ def main():
 
         frame_count += 1
         # UI
-        button.draw(screen)
-        button2.draw(screen)
+        # button.draw(screen)
+        # button2.draw(screen)
         pygame.display.update()
         # Bring drawn changes to the front
         pygame.display.flip()
         pygame.event.peek()
         # set fps
         clock.tick(30)
+
 
     # Wait for an event to quit.
     # This also helps a strange issue where the final frame from above

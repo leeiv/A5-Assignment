@@ -80,6 +80,28 @@ class BigBoiAlien(Alien):
         self.health = 150
         self.attack = 0.1
 
+# UI
+
+class Button:
+    def __init__(self, rect, command):
+        self.rect = pygame.Rect(rect)
+        self.image = pygame.Surface(self.rect.size).convert()
+        self.image.fill((255,0,0))
+        self.function = command
+
+    def get_event(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            self.on_click(event)
+
+    def on_click(self, event):
+        if self.rect.collidepoint(event.pos):
+            self.function()
+
+    def draw(self, surf):
+        surf.blit(self.image, self.rect)
+
+def button_pressed():
+    print("Button was pressed")
 
 # Draw the little bar above showing health
 def draw_health_bar(screen, health, position_rect):
@@ -105,6 +127,9 @@ def main():
     robot = Robot(robot_image)
     alien_image = pygame.image.load("alien.png").convert_alpha()
     alien = Alien(alien_image)
+
+    #Button
+    button = Button(rect=(50,50,105,25), command=button_pressed)
 
     build_list = []
     computer_build_list = []
@@ -140,8 +165,6 @@ def main():
             #             player1_gold -= Wizard.cost
             #             build_list.append(Wizard(wizard_image))
 
-        # add a bit of gold to the player1 supply
-
         # Pull a ready object from the factory queue
         if frame_count%30 == 0:
             # if build_list:
@@ -156,9 +179,9 @@ def main():
                 computer_troops.append(SpeedyAlien(alien_image))
 
         # Advance troops that are not engaged in battle
-        print(frame_count)
+        #print(frame_count)
         for troop in player1_troops:
-            print(troop)
+            #print(troop)
             if not troop.in_battle:
                 troop.pos += troop.speed
             troop.in_battle = False
@@ -214,6 +237,9 @@ def main():
         computer_troops = [troop for troop in computer_troops if troop.health > 0]
 
         frame_count += 1
+        # UI
+        button.draw(screen)
+        pygame.display.update()
         # Bring drawn changes to the front
         pygame.display.flip()
         pygame.event.peek()

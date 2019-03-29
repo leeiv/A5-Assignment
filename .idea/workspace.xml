@@ -52,6 +52,26 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="469527276">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.16" value="1" />
+          <entry key="project.open.time.4" value="1" />
+          <entry key="project.opened" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="py" value="1207" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="1207" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -106,12 +126,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/A5 V3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="143" lean-forward="true" selection-start-line="143" selection-end-line="143" />
+            <state relative-caret-position="2771">
+              <caret line="163" column="30" selection-start-line="163" selection-start-column="30" selection-end-line="163" selection-end-column="30" />
               <folding>
-                <element signature="e#43#69#0" expanded="true" />
-                <marker date="1553822994173" expanded="true" signature="1573:1689" ph="..." />
-                <marker date="1553822994173" expanded="true" signature="2185:2326" ph="..." />
+                <element signature="e#43#70#0" expanded="true" />
+                <marker date="1553831320651" expanded="true" signature="2884:2918" ph="..." />
+                <marker date="1553831320651" expanded="true" signature="3285:3286" ph="..." />
               </folding>
             </state>
           </provider>
@@ -129,6 +149,10 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>Field</find>
+      <find>print</find>
+      <find>window</find>
+      <find>pygame</find>
+      <find>btn</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -151,18 +175,17 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-12" />
-    <option name="y" value="-12" />
-    <option name="width" value="3226" />
-    <option name="height" value="1746" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-48" />
+    <option name="y" value="118" />
+    <option name="width" value="3300" />
+    <option name="height" value="1100" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -174,13 +197,16 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Course" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/Homework Comp1020/Lab 11" />
+    <property name="last_opened_file_path" value="$USER_HOME$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -335,15 +361,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1613" height="873" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28681672" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12961012" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2991914" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.29894736" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39892185" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -405,7 +430,7 @@
     <entry file="file://$PROJECT_DIR$/Knight.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/alien.png">
+    <entry file="file://$PROJECT_DIR$/Alien.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/Lab8Starter.py">
@@ -450,12 +475,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/A5 V3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="143" lean-forward="true" selection-start-line="143" selection-end-line="143" />
+        <state relative-caret-position="2771">
+          <caret line="163" column="30" selection-start-line="163" selection-start-column="30" selection-end-line="163" selection-end-column="30" />
           <folding>
-            <element signature="e#43#69#0" expanded="true" />
-            <marker date="1553822994173" expanded="true" signature="1573:1689" ph="..." />
-            <marker date="1553822994173" expanded="true" signature="2185:2326" ph="..." />
+            <element signature="e#43#70#0" expanded="true" />
+            <marker date="1553831320651" expanded="true" signature="2884:2918" ph="..." />
+            <marker date="1553831320651" expanded="true" signature="3285:3286" ph="..." />
           </folding>
         </state>
       </provider>

@@ -43,6 +43,18 @@ class Robot:
     def draw(self, screen):
         screen.blit(self.image, self.rect)
 
+class WeakBot(Robot):
+    def __init__(self, image):
+        super().__init__(image)
+        self.health = 20
+        self.attack = 0.8
+
+class StrongBot(Robot):
+    def __init__(self, image):
+        super().__init__(image)
+        self.health = 60
+        self.attack = 0.1
+
 class Alien:
     def __init__(self, image):
         self.pos = 0
@@ -53,6 +65,20 @@ class Alien:
         self.speed = 4
         self.in_battle = False
         self.y_position = random.randint(1, 5) * self.rect.height
+
+class SpeedyAlien(Alien):
+    def __init__(self, image):
+        super().__init__(image)
+        self.speed = 6
+        self.health = 20
+        self.attack = 0.5
+
+class BigBoiAlien(Alien):
+    def __init__(self, image):
+        super().__init__(image)
+        self.speed = 2
+        self.health = 150
+        self.attack = 0.1
 
 
 # Draw the little bar above showing health
@@ -124,8 +150,10 @@ def main():
         # Add computer troops
             if random.randint(1,100) > 60:
                 player1_troops.append(Robot(robot_image))
-            if random.randint(1,100) > 80:
-                computer_troops.append(Alien(alien_image))
+            if random.randint(1,100) > 90:
+                computer_troops.append(BigBoiAlien(alien_image))
+            if random.randint(1,100) > 60:
+                computer_troops.append(SpeedyAlien(alien_image))
 
         # Advance troops that are not engaged in battle
         print(frame_count)

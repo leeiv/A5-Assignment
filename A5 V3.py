@@ -86,7 +86,7 @@ class Button:
     def __init__(self, rect, command):
         self.rect = pygame.Rect(rect)
         self.image = pygame.Surface(self.rect.size).convert()
-        self.image.fill((255,0,0))
+        self.image.fill((200,100,0))
         self.function = command
 
     def get_event(self, event):
@@ -130,7 +130,10 @@ def main():
 
     #Button
     button = Button(rect=(50,50,105,25), command=button_pressed)
+    button2 = Button(rect=(200, 50, 105, 25), command=button_pressed)
+    # button.draw(screen)
 
+    player1_gold = 50
     build_list = []
     computer_build_list = []
     player1_troops = []
@@ -165,6 +168,8 @@ def main():
             #             player1_gold -= Wizard.cost
             #             build_list.append(Wizard(wizard_image))
 
+        player1_gold += 0.06
+
         # Pull a ready object from the factory queue
         if frame_count%30 == 0:
             # if build_list:
@@ -172,10 +177,12 @@ def main():
             #     player1_troops.append(new_troop)
         # Add computer troops
             if random.randint(1,100) > 60:
-                player1_troops.append(Robot(robot_image))
-            if random.randint(1,100) > 90:
+                player1_troops.append(StrongBot(robot_image))
+            if random.randint(1,100) > 80:
+                player1_troops.append(WeakBot(robot_image))
+            if random.randint(1,100) > 95:
                 computer_troops.append(BigBoiAlien(alien_image))
-            if random.randint(1,100) > 60:
+            if random.randint(1,100) > 85:
                 computer_troops.append(SpeedyAlien(alien_image))
 
         # Advance troops that are not engaged in battle
@@ -193,7 +200,7 @@ def main():
 
         # Erase the screen
         screen.fill((150, 200, 150))
-        # GAME_FONT.render_to(screen, (40, 20), "Gold: " + str(int(player1_gold)), (200, 100, 120))
+        GAME_FONT.render_to(screen, (40, 20), "Gold: " + str(int(player1_gold)), (200, 100, 120))
 
         # Draw the troops
         for troop in player1_troops:
@@ -239,12 +246,14 @@ def main():
         frame_count += 1
         # UI
         button.draw(screen)
+        button2.draw(screen)
         pygame.display.update()
         # Bring drawn changes to the front
         pygame.display.flip()
         pygame.event.peek()
         # set fps
         clock.tick(30)
+
     # Wait for an event to quit.
     # This also helps a strange issue where the final frame from above
     # doesn't seem to show until after the pygame.quit - for example

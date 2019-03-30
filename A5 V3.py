@@ -38,8 +38,6 @@ class Robot:
         self.speed = 2
         self.in_battle = False
         self.cost = 50
-        # self.y_position = random.randint(1, 5) * self.rect.width
-        # self.x_position = random.randint(1, 5) * self.rect.height
 
         x_pos, y_pos = position
 
@@ -60,39 +58,39 @@ class Robot:
 class WeakBot(Robot):
     def __init__(self, image, position):
         super().__init__(image, position)
-        self.health = 20
-        self.attack = 0.8
+        self.health = 50
+        self.attack = 0.2
 
 class StrongBot(Robot):
     def __init__(self, image, position):
         super().__init__(image, position)
-        self.health = 60
-        self.attack = 0.1
+        self.health = 100
+        self.attack = 0.7
 
 class Alien:
     def __init__(self, image):
         self.pos = 0
         self.image = image
         self.rect = self.image.get_rect()
-        self.health = 100
-        self.attack = 0.2
-        self.speed = 4
+        self.health = 50
+        self.attack = 0.5
+        self.speed = 2
         self.in_battle = False
         self.y_position = random.randint(1, 5) * self.rect.height
 
 class SpeedyAlien(Alien):
     def __init__(self, image):
         super().__init__(image)
-        self.speed = 6
-        self.health = 20
-        self.attack = 0.3
+        self.speed = 4
+        self.health = 50
+        self.attack = 0.2
 
 class BigBoiAlien(Alien):
     def __init__(self, image):
         super().__init__(image)
-        self.speed = 2
-        self.health = 150
-        self.attack = 0.1
+        self.speed = 1
+        self.health = 100
+        self.attack = 0.7
 
 # UI
 
@@ -148,13 +146,6 @@ def main():
     robot_image = pygame.image.load("robot.png").convert_alpha()
     alien_image = pygame.image.load("alien.png").convert_alpha()
 
-    #Button
-    # button = Button(rect=(50,50,105,25), command=button_pressed)
-    # button2 = Button(rect=(200, 50, 105, 25), command=button_pressed)
-    # button.draw(screen)
-
-
-
     player1_gold = 50
     build_list = []
     computer_build_list = []
@@ -179,7 +170,6 @@ def main():
             mouse_position = pygame.mouse.get_pos()
             # Process key presses as events so as to capture all key presses
             # rather than just those while looking.
-
             # Depending on the key press, add different troops to the
             # build_list
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -205,24 +195,12 @@ def main():
 
         # Pull a ready object from the factory queue
         if frame_count%30 == 0:
-            # if build_list:
-            #     new_troop = build_list.pop(0)
-            #     player1_troops.append(new_troop)
-        # Add computer troops
-
-            # if random.randint(1,100) > 60:
-            #     player1_troops.append(StrongBot(robot_image))
-            # if random.randint(1,100) > 80:
-            #     player1_troops.append(WeakBot(robot_image))
             if random.randint(1,100) > 95:
                 computer_troops.append(BigBoiAlien(alien_image))
             if random.randint(1,100) > 85:
                 computer_troops.append(SpeedyAlien(alien_image))
 
-        # Advance troops that are not engaged in battle
-        #print(frame_count)
         for troop in player1_troops:
-            #print(troop)
             if not troop.in_battle:
                 troop.pos += troop.speed
             troop.in_battle = False
@@ -288,8 +266,6 @@ def main():
 
         frame_count += 1
         # UI
-        # button.draw(screen)
-        # button2.draw(screen)
         pygame.display.update()
         # Bring drawn changes to the front
         pygame.display.flip()
@@ -297,14 +273,7 @@ def main():
         # set fps
         clock.tick(30)
 
-
-    # Wait for an event to quit.
-    # This also helps a strange issue where the final frame from above
-    # doesn't seem to show until after the pygame.quit - for example
-    # if a delay is added here instead of the wait.
-    # pygame.time.delay(3000)
     pygame.event.clear()
-    #pygame.event.wait()
     pygame.quit()
     sys.exit()
 
